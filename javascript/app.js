@@ -17,8 +17,8 @@ searchInput.addEventListener("click", () => {
             .then((response) => response.json())
             .then(data => {
                 console.log(data.name);
-                localStorage.stuff = JSON.stringify(data);
-                window.location.href = "country.html";
+                localStorage.results = JSON.stringify(data);
+                window.location.href = "html/country.html";
                 
             })
             .catch((error) => {
@@ -32,14 +32,18 @@ searchInput.addEventListener("click", () => {
 })
 
 input.addEventListener('keydown', (e) => {
-    var regex = new RegExp('[a-zA-Z]');
+    var regex = new RegExp('[a-zA-Z ]');
 
-    if(e.ctrlKey || e.altKey || typeof e.key !== 'string' || e.key.length !== 1) return;
+    if (e.ctrlKey || e.altKey || typeof e.key !== 'string' || e.key.length !== 1) return;
 
     if (!regex.test(e.key)) {
         e.preventDefault();
     }
-}, false);
+});
 
-// name         flag
-// capital language currency region population
+input.addEventListener('keypress', (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        searchInput.click();
+    }
+});
