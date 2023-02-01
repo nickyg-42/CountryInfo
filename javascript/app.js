@@ -2,6 +2,10 @@ const searchInput = document.querySelector('.search');
 const input = document.getElementById('input');
 const url = "https://restcountries.com/v3.1/name/";
 
+document.addEventListener('DOMContentLoaded', () => {
+    localStorage.clear();
+})
+
 searchInput.addEventListener("click", () => {
     let val = input.value;
 

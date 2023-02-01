@@ -360,3 +360,7 @@ html {
     color: #fff !important;
     background-color: #000 !important;
   }
+  .country-stat {
+    color: red;
+    font-weight: bold;
+  }
