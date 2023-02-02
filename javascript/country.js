@@ -39,14 +39,22 @@ window.addEventListener('DOMContentLoaded', () => {
 
     var currs = [];
     var currText = "";
+    var currSym = "";
 
     for (const cr in data[index].currencies) {
-        currs.push(data[index].currencies[cr].name + " " + data[index].currencies[cr].symbol);
+        currs.push(data[index].currencies[cr].name);
+        currs.push(data[index].currencies[cr].symbol);
     }
 
     currText = currs[0];
+    currSym = currs[1];
 
-    document.getElementById('currency').innerHTML = currText;
+    document.getElementById('currencyName').innerHTML = currText;
+    document.getElementById('currencySym').innerHTML = currSym;
+
+    if (localStorage.isMany === "true") {
+        document.getElementById('hiddenBack').style.display = 'block';
+    }
 });
 
 backButton.addEventListener('click', () => {
