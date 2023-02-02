@@ -1,21 +1,52 @@
 const backButton = document.getElementById('backButton');
+const index = parseInt(localStorage.index);
 
 window.addEventListener('DOMContentLoaded', () => {
     const data = JSON.parse(localStorage.results);
 
-    document.getElementById('head').innerHTML = data[0].name.common;
-    document.getElementById('flag').src = data[0].flags.png;
-    document.getElementById('population').innerHTML = data[0].population;
-    //document.getElementById('capital').innerHTML = data[0].capital[0];
-    //document.getElementById('currencies').innerHTML = data[0].currencies[0].name;
-    //document.getElementById('region').innerHTML = data[0].region;
+    document.getElementById('head').innerHTML = data[index].name.common;
 
-    var langs = "";
-    for (const lg in data[0].languages) {
-        langs += data[0].languages[lg] + ", ";
+    document.getElementById('flag').src = data[index].flags.png;
+    document.getElementById('flag').alt = data[index].flags.alt;
+
+    document.getElementById('population').innerHTML = data[index].population.toLocaleString("en-US");
+    document.getElementById('capital').innerHTML = data[index].capital[0];
+    document.getElementById('region').innerHTML = data[index].region;
+
+    var langs = [];
+    var langText = "";
+
+    
+    for (const lg in data[index].languages) {
+        langs.push(" " + data[index].languages[lg]);
     }
 
-    document.getElementById('language').innerHTML = langs.slice(0, -2);
+    if (langs.length > 1) {
+        langs.splice(langs.length - 1, 0, " and");
+
+        if (langs.length == 2) {
+            langText = langs.toString().replace(",", " ");
+        }
+        else {
+            langText = langs.toString();
+            var pos = langText.lastIndexOf(",");
+            langText = langText.substring(0, pos) + langText.substring(pos+1);
+        }
+    }
+    else langText = langs.toString() || "undefined";
+    
+    document.getElementById('language').innerHTML = langText;
+
+    var currs = [];
+    var currText = "";
+
+    for (const cr in data[index].currencies) {
+        currs.push(data[index].currencies[cr].name + " " + data[index].currencies[cr].symbol);
+    }
+
+    currText = currs[0];
+
+    document.getElementById('currency').innerHTML = currText;
 });
 
 backButton.addEventListener('click', () => {

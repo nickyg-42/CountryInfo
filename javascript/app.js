@@ -20,10 +20,16 @@ searchInput.addEventListener("click", () => {
             })
             .then((response) => response.json())
             .then(data => {
-                console.log(data.name);
                 localStorage.results = JSON.stringify(data);
-                window.location.href = "html/country.html";
-                
+                localStorage.index = "0";
+
+                if (data.length > 1) {
+                    localStorage.isMany = "true";
+                    window.location.href = "html/selection.html";
+                }
+                else {
+                    window.location.href = "html/country.html";
+                }
             })
             .catch((error) => {
                 console.log(error);
